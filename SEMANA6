@@ -1,0 +1,97 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('registrationForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const ageInput = document.getElementById('age');
+    const submitButton = document.getElementById('submitButton');
+
+    const validateName = () => {
+        const nameError = document.getElementById('nameError');
+        if (nameInput.value.length < 3) {
+            nameError.textContent = 'El nombre debe tener al menos 3 caracteres.';
+            nameInput.classList.add('invalid');
+            return false;
+        } else {
+            nameError.textContent = '';
+            nameInput.classList.remove('invalid');
+            nameInput.classList.add('valid');
+            return true;
+        }
+    };
+
+    const validateEmail = () => {
+        const emailError = document.getElementById('emailError');
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailInput.value)) {
+            emailError.textContent = 'Formato de correo electrónico inválido.';
+            emailInput.classList.add('invalid');
+            return false;
+        } else {
+            emailError.textContent = '';
+            emailInput.classList.remove('invalid');
+            emailInput.classList.add('valid');
+            return true;
+        }
+    };
+
+    const validatePassword = () => {
+        const passwordError = document.getElementById('passwordError');
+        const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+        if (!passwordPattern.test(passwordInput.value)) {
+            passwordError.textContent = 'La contraseña debe tener al menos 8 caracteres, un número y un carácter especial.';
+            passwordInput.classList.add('invalid');
+            return false;
+        } else {
+            passwordError.textContent = '';
+            passwordInput.classList.remove('invalid');
+            passwordInput.classList.add('valid');
+            return true;
+        }
+    };
+
+    const validateConfirmPassword = () => {
+        const confirmPasswordError = document.getElementById('confirmPasswordError');
+        if (confirmPasswordInput.value !== passwordInput.value) {
+            confirmPasswordError.textContent = 'Las contraseñas no coinciden.';
+            confirmPasswordInput.classList.add('invalid');
+            return false;
+        } else {
+            confirmPasswordError.textContent = '';
+            confirmPasswordInput.classList.remove('invalid');
+            confirmPasswordInput.classList.add('valid');
+            return true;
+        }
+    };
+
+    const validateAge = () => {
+        const ageError = document.getElementById('ageError');
+        if (ageInput.value < 18) {
+            ageError.textContent = 'Debes ser mayor de 18 años.';
+            ageInput.classList.add('invalid');
+            return false;
+        } else {
+            ageError.textContent = '';
+            ageInput.classList.remove('invalid');
+            ageInput.classList.add('valid');
+            return true;
+        }
+    };
+
+    const validateForm = () => {
+        const isValid = validateName() && validateEmail() && validatePassword() && validateConfirmPassword() && validateAge();
+        submitButton.disabled = !isValid;
+    };
+
+    nameInput.addEventListener('input', validateForm);
+    emailInput.addEventListener('input', validateForm);
+    passwordInput.addEventListener('input', validateForm);
+    confirmPasswordInput.addEventListener('input', validateForm);
+    ageInput.addEventListener('input', validateForm);
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        alert('Formulario enviado con éxito.');
+    });
+});
