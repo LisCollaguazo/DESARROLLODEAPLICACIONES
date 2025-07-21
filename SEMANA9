@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>Página Interactiva</title>
+</head>
+<body>
+    <header class="bg-primary text-white text-center p-4">
+        <h1>Mi Página Interactiva</h1>
+        <nav>
+            <ul class="nav justify-content-center">
+                <li class="nav-item"><a class="nav-link text-white" href="#carrusel">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#productos">Productos</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="carrusel" class="my-4">
+            <div id="carouselExample" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3679a768-31e0-441f-ae80-2297479159a4.png" class="d-block w-100" alt="Main product showcase banner">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bce24d81-59b7-4bb2-b326-8f405a166351.png" class="d-block w-100" alt="Premium product showcase">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3fefeee5-7413-49cf-aec2-d02f5fcd39d8.png" class="d-block w-100" alt="Limited time special offer">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Anterior</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Siguiente</span>
+                </a>
+            </div>
+        </section>
+
+        <section id="productos" class="my-4">
+            <h2>Productos</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Producto 1</td>
+                        <td>$10</td>
+                        <td>Descripción del producto 1</td>
+                    </tr>
+                    <tr>
+                        <td>Producto 2</td>
+                        <td>$20</td>
+                        <td>Descripción del producto 2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="contacto" class="my-4">
+            <h2>Contacto</h2>
+            <form id="contactForm">
+                <input type="hidden" id="csrfToken" name="_csrf" value="">
+                <div class="form-group">
+                    <label for="nombre" class="font-weight-bold">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" required aria-required="true" aria-describedby="nombreHelp">
+                    <small id="nombreHelp" class="form-text text-muted">Ingrese su nombre completo</small>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="font-weight-bold">Correo Electrónico:</label>
+                    <input type="email" class="form-control" id="email" required 
+                        pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" 
+                        aria-required="true"
+                        aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-muted">Ejemplo: usuario@dominio.com</small>
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea class="form-control" id="mensaje" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="button" class="btn btn-secondary" id="alertButton">Mostrar Alerta</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="bg-light text-center p-4" itemscope itemtype="http://schema.org/Organization">
+        <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+            <span itemprop="email" class="d-block">contacto@miempresa.com</span>
+        </div>
+        <div class="social-links mt-2">
+            <a href="#" class="text-dark mx-2" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-dark mx-2" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        </div>
+        <p class="mt-2 mb-0">&copy; 2023 Mi Empresa. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>
