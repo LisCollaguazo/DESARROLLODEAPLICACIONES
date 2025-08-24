@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Flask Completo - Estudiante de Sistemas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .flask-logo {
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        }
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #667eea;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #667eea }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header/Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <div class="flask-logo bg-blue-600 text-white p-2 rounded-lg">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold text-gray-800">FlaskProject</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#inicio" class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Inicio</a>
+                    <a href="#acerca" class="text-gray-600 hover:text-blue-600 transition-colors">Acerca de</a>
+                    <a href="#proyectos" class="text-gray-600 hover:text-blue-600 transition-colors">Proyectos</a>
+                    <a href="#contacto" class="text-gray-600 hover:text-blue-600 transition-colors">Contacto</a>
+                </div>
+
+                <div class="md:hidden">
+                    <button class="mobile-menu-button">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-gradient text-white pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 typewriter">
+                    ¡Bienvenido a Mi Proyecto Flask!
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">
+                    Desarrollado por un estudiante de sistemas apasionado por la programación
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#proyectos" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        Ver Proyectos
+                    </a>
+                    <a href="#acerca" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+                        Sobre Mí
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="acerca" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Acerca del Proyecto</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Este proyecto demuestra mis habilidades en desarrollo web con Flask, HTML, CSS y JavaScript
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/38987b35-7dfa-40b5-9e02-9d479fe78597.png" alt="Estudiante de sistemas trabajando en su portátil con código Flask visible en la pantalla" class="rounded-lg shadow-xl w-full" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgZmlsbD0iIzY0NjQ2NCI+RXN0dWRpYW50ZSBkZSBzaXN0ZW1hcyB0cmFiYWphbmRvPC90ZXh0Pjwvc3ZnPg=='">
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Tecnologías Utilizadas</h3>
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 font-bold">F</span>
+                            </div>
+                            <span class="font-semibold">Flask</span>
+                        </div>
+                        <div class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                                <span class="text-green-600 font-bold">P</span>
+                            </div>
+                            <span class="font-semibold">Python</span>
+                        </div>
+                        <div class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+                                <span class="text-yellow-600 font-bold">H</span>
+                            </div>
+                            <span class="font-semibold">HTML5</span>
+                        </div>
+                        <div class="flex items-center space-x-2 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 font-bold">C</span>
+                            </div>
+                            <span class="font-semibold">CSS3</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        Como estudiante de sistemas, he desarrollado esta aplicación para demostrar mis habilidades en 
+                        desarrollo web backend con Flask y frontend con tecnologías modernas.
+                    </p>
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                        <p class="text-blue-800">
+                            <strong>Características implementadas:</strong> Rutas dinámicas, plantillas Jinja2, 
+                            herencia de templates, estilos responsive, y mucho más.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="proyectos" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Mis Proyectos Flask</h2>
+                <p class="text-xl text-gray-600">Algunos de los proyectos que he desarrollado durante mis estudios</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-48 bg-gradient-to-r from-blue-400 to-purple-500 relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33614080-c1a7-42eb-883d-4cad074f2c2a.png" alt="Dashboard administrativo con gráficos y métricas desarrollado con Flask" class="w-full h-full object-cover" onerror="this.style.background='linear-gradient(135deg, #667eea 0%, #764ba2 100%)'">
+                        <div class="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            Flask
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Sistema de Gestión</h3>
+                        <p class="text-gray-600 mb-4">Dashboard administrativo con CRUD completo y autenticación de usuarios.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">Python + SQLite</span>
+                            <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold">Ver Demo</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-48 bg-gradient-to-r from-green-400 to-blue-500 relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d14d87b9-7680-4b7f-9a87-591ce812a541.png" alt="API RESTful para gestión de inventarios con documentación Swagger" class="w-full h-full object-cover" onerror="this.style.background='linear-gradient(135deg, #48bb78 0%, #4299e1 100%)'">
+                        <div class="absolute top-4 right-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            API
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">API RESTful</h3>
+                        <p class="text-gray-600 mb-4">API completa para gestión de inventarios con autenticación JWT y documentación.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">Flask-RESTful</span>
+                            <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold">Ver Código</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-48 bg-gradient-to-r from-purple-400 to-pink-500 relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b191b253-51ef-4a67-ae96-d03df9d17f88.png" alt="Blog personal con sistema de comentarios y panel de administración" class="w-full h-full object-cover" onerror="this.style.background='linear-gradient(135deg, #9f7aea 0%, #ed64a6 100%)'">
+                        <div class="absolute top-4 right-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            Blog
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Blog Personal</h3>
+                        <p class="text-gray-600 mb-4">Plataforma de blogging con sistema de comentarios y panel de administración.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">MySQL + WTForms</span>
+                            <a href="#" class="text-blue-600 hover:text-blue-800 font-semibold">Visitar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Example Section -->
+    <section class="py-20 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Código de Ejemplo</h2>
+                <p class="text-xl text-gray-300">Así se ve la estructura de mi aplicación Flask</p>
+            </div>
+
+            <div class="bg-gray-800 rounded-lg p-6 mb-8">
+                <div class="flex space-x-2 mb-4">
+                    <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                </div>
+                <pre class="text-green-400 overflow-x-auto"><code>
+# app.py - Aplicación principal Flask
+from flask import Flask, render_template, jsonify
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html', 
+                         title='Inicio',
+                         welcome_message='Bienvenido a mi proyecto Flask')
+
+@app.route('/about')
+def about():
+    return render_template('about.html',
+                         title='Acerca de',
+                         description='Proyecto desarrollado por estudiante de sistemas')
+
+@app.route('/api/projects')
+def api_projects():
+    projects = [
+        {'id': 1, 'name': 'Sistema de Gestión', 'tech': ['Flask', 'SQLite']},
+        {'id': 2, 'name': 'API RESTful', 'tech': ['Flask-RESTful', 'JWT']},
+        {'id': 3, 'name': 'Blog Personal', 'tech': ['MySQL', 'WTForms']}
+    ]
+    return jsonify(projects)
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)
+                </code></pre>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-800 rounded-lg p-6">
+                    <h4 class="text-xl font-semibold mb-4 text-blue-400">base.html</h4>
+                    <pre class="text-yellow-300 overflow-x-auto"><code>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Mi Proyecto Flask{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    {% include 'partials/header.html' %}
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    {% include 'partials/footer.html' %}
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+                    </code></pre>
+                </div>
+
+                <div class="bg-gray-800 rounded-lg p-6">
+                    <h4 class="text-xl font-semibold mb-4 text-green-400">index.html</h4>
+                    <pre class="text-blue-300 overflow-x-auto"><code>
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <h1>{{ welcome_message }}</h1>
+        <p>Desarrollado con Flask y mucho entusiasmo</p>
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature-card">
+        <h3>Tecnologías Modernas</h3>
+        <p>Utilizando las últimas tecnologías web</p>
+    </div>
+    <!-- Más características -->
+{% endblock %}
+                    </code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">¿Interesado en colaborar?</h2>
+                <p class="text-xl text-gray-600">Estoy siempre abierto a nuevas oportunidades de aprendizaje y proyectos</p>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-8 shadow-md">
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
+                            <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Tu nombre">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="tu@email.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Mensaje</label>
+                        <textarea rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Cuéntame sobre tu proyecto..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                        Enviar Mensaje
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">FlaskProject</h3>
+                    <p class="text-gray-400">Desarrollado con ❤️ por un estudiante de sistemas apasionado por la tecnología.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Enlaces Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#inicio" class="text-gray-400 hover:text-white transition-colors">Inicio</a></li>
+                        <li><a href="#acerca" class="text-gray-400 hover:text-white transition-colors">Acerca de</a></li>
+                        <li><a href="#proyectos" class="text-gray-400 hover:text-white transition-colors">Proyectos</a></li>
+                        <li><a href="#contacto" class="text-gray-400 hover:text-white transition-colors">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Tecnologías</h4>
+                    <div class="flex space-x-3">
+                        <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">Flask</span>
+                        <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm">Python</span>
+                        <span class="bg-yellow-600 text-white px-3 py-1 rounded-full text-sm">HTML5</span>
+                        <span class="bg-blue-400 text-white px-3 py-1 rounded-full text-sm">CSS3</span>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2023 Mi Proyecto Flask. Desarrollado como parte de mis estudios en sistemas.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript para funcionalidades básicas
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling para enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Animación para las cards al aparecer
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.card-hover').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+
+            console.log('¡Proyecto Flask cargado correctamente! 🚀');
+        });
+    </script>
+</body>
+</html>
+
