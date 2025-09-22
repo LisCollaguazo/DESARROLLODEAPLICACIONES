@@ -1,0 +1,163 @@
+# =====================================================
+# APLICACIÓN PRINCIPAL FLASK CON SISTEMA DE LOGIN
+# =====================================================
+# Autor: Ingeniero en Sistemas
+# Descripción: App Flask con rutas para home, registro, login, logout y página protegida.
+# Dependencias: flask, flask_login, models, werkzeug, conexion, mysql-connector-python
+# Notas:
+# - Secret key: Para firmar sesiones; genera una aleatoria en prod (os.urandom(24)).
+# - Flash messages: Para feedback al usuario (éxito/error).
+# - @login_required: Protege rutas; redirige a /login si no autenticado.
+# - Manejo de errores: Try-except en rutas críticas.
+# - Extensión posible: Agregar CSRF protection con Flask-WTF, o más rutas (dashboard, profile).
+# - Debug=True solo para desarrollo; False en prod.
+# =====================================================
+
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from models import Usuario
+from werkzeug.security import generate_password_hash
+from conexion.conexion import get_connection, close_connection
+import mysql.connector
+import os
+
+# Inicializar aplicación Flask
+app = Flask(__name__)
+app.secret_key = 'tu_clave_secreta_super_segura'  # ¡CAMBIAR! En prod: app.secret_key = os.urandom(24)
+
+# Configuración de Flask-Login
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'  # Ruta por defecto para redirigir si no logueado
+login_manager.login_message = 'Debes iniciar sesión para acceder a esta página.'  # Mensaje de redirección
+login_manager.login_message_category = 'info'
+
+# Cargar usuario por ID (requerido por Flask-Login para sesiones persistentes)
+@login_manager.user_loader
+def load_user(user_id):
+    """
+    Callback para recargar usuario desde DB por ID (de la sesión).
+    
+    Args:
+        user_id (str): ID serializado del usuario.
+    
+    Returns:
+        Usuario or None: Instancia de usuario.
+    """
+    try:
+        user_id_int = int(user_id)  # Deserializar ID
+        connection = get_connection()
+        if connection:
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute("SELECT * FROM usuarios WHERE id_usuario = %s", (user_id_int,))
+            user_row = cursor.fetchone()
+            cursor.close()
+            close_connection(connection)
+            if user_row:
+                return Usuario(
+                    user_row['id_usuario'],
+                    user_row['nombre'],
+                    user_row['email'],
+                    user_row['password']
+                )
+    except ValueError:
+        print("ID de usuario inválido")
+    return None
+
+# =====================================================
+# RUTAS PÚBLICAS
+# =====================================================
+
+@app.route('/')
+def home():
+    """
+    Ruta principal: Home page.
+    Muestra base.html con estado de login.
+    """
+    return render_template('base.html', title='Página de Inicio')
+
+# =====================================================
+# RUTA DE REGISTRO
+# =====================================================
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    """
+    Ruta para registrar nuevo usuario.
+    GET: Muestra formulario.
+    POST: Procesa registro, hashea password, inserta en DB.
+    Maneja errores: campos vacíos, email duplicado.
+    """
+    if request.method == 'POST':
+        # Obtener datos del formulario
+        nombre = request.form.get('nombre', '').strip()
+        email = request.form.get('email', '').strip().lower()
+        password = request.form.get('password', '')
+        
+        # Validaciones básicas
+        if not all([nombre, email, password]):
+            flash('Todos los campos son requeridos.', 'error')
+            return redirect(url_for('register'))
+        
+        if len(password) < 6:
+            flash('La contraseña debe tener al menos 6 caracteres.', 'error')
+            return redirect(url_for('register'))
+        
+        # Crear usuario usando modelo
+        if Usuario.create_user(nombre, email, password):
+            flash('Usuario registrado exitosamente. Puedes iniciar sesión.', 'success')
+            return redirect(url_for('login'))
+        else:
+            flash('Error al registrar: Email ya existe o problema en la DB.', 'error')
+    
+    # GET: Renderizar formulario
+    return render_template('register.html', title='Registro de Usuario')
+
+# =====================================================
+# RUTA DE LOGIN
+# =====================================================
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """
+    Ruta para iniciar sesión.
+    GET: Muestra formulario.
+    POST: Verifica credenciales contra DB, inicia sesión si OK.
+    """
+    if current_user.is_authenticated:  # Si ya logueado, redirigir
+        return redirect(url_for('protected'))
+    
+    if request.method == 'POST':
+        # Obtener datos
+        email = request.form.get('email', '').strip().lower()
+        password = request.form.get('password', '')
+        
+        if not email or not password:
+            flash('Email y password son requeridos.', 'error')
+            return redirect(url_for('login'))
+        
+        # Cargar y verificar usuario
+        user = Usuario.get_user_by_email(email)
+        if user and user.check_password(password):
+            login_user(user, remember=True)  # remember=True para cookie persistente
+            flash(f'¡Bienvenido, {user.nombre}! Login exitoso.', 'success')
+            return redirect(url_for('protected'))
+        else:
+            flash('Email o password incorrecto. Intenta de nuevo.', 'error')
+    
+    # GET: Renderizar formulario
+    return render_template('login.html', title='Iniciar Sesión')
+
+# =====================================================
+# RUTA DE LOGOUT
+# =====================================================
+
+@app.route('/logout')
+@login_required
+def logout():
+    """
+    Ruta para cerrar sesión.
+    Limpia sesión y redirige a home.
+    """
+    logout_user()
+    flash('Sesión cerrada exit
